@@ -51,18 +51,18 @@ AppWindow::AppWindow(int windowWidth, int windowHeight, std::string windowTitle)
 
 AppWindow::~AppWindow()
 {
-    // destroy Window
-    if (m_window)
-    {
-        glfwDestroyWindow(m_window);
-        m_window = nullptr;
-    }
-
     // destroy Dear Imgui
     if (m_appImgui)
     {
         delete m_appImgui;
         m_appImgui = nullptr;
+    }
+
+    // destroy Window
+    if (m_window)
+    {
+        glfwDestroyWindow(m_window);
+        m_window = nullptr;
     }
 
     // destroy GLFW
@@ -79,11 +79,10 @@ void AppWindow::ErrorCallback(int error, const char* description)
 
 void AppWindow::InputCallback(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
-    AppWindow *app = reinterpret_cast<AppWindow *>(glfwGetWindowUserPointer(window));
-    if (app == nullptr) {
-        exit(-1);
-    }
-    
+    // AppWindow *app = reinterpret_cast<AppWindow *>(glfwGetWindowUserPointer(window));
+    // if (app == nullptr) {
+    //     exit(-1);
+    // }
     // if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
     //     glfwSetWindowShouldClose(app->m_window, GLFW_TRUE);
     // }

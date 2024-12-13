@@ -13,7 +13,6 @@ include(cmake/modules/DearImgui.cmake)
 set(DEP_INCLUDE_DIRS
     ${CMAKE_SOURCE_DIR}/source/
     ${CMAKE_SOURCE_DIR}/source/app
-    ${CMAKE_SOURCE_DIR}/source/utils
 )
 set(DEP_LIBS
     ${GLFW_LIBRARY}
