@@ -1,17 +1,29 @@
 @echo off
+setlocal EnableDelayedExpansion
 
-set BUILDIR="%~dp0..\__AppBuild__"
-set TARGET=Debug
+@REM build in root folder not recommended, but...
+set buildDir=%~dp0build
+set buildTarget=Debug
+set buildWithNinja=0
 
+:argloop
 if NOT "%1" == "" (
-    if "%1" == "debug" (
-        set TARGET=Debug
-    ) else if "%1" == "release" (
-        set TARGET=Release
+    if "%1" == "release" (
+        set buildTarget=Release
+    ) else if "%1" == "ninja" (
+        set buildWithNinja=1
     )
+
+    shift /1
+    goto argloop
 )
 
-echo -- Build type selected: %TARGET%
+if %buildWithNinja% == 1 (
+    cmake -G Ninja -B %buildDir% -DCMAKE_BUILD_TYPE=%buildTarget%
+    cmake --build %buildDir%
+) else (
+    cmake -B %buildDir%
+    cmake --build %buildDir% --config %buildTarget%
+)
 
-cmake -B %BUILDIR%
-cmake --build %BUILDIR% --config %TARGET%
+endlocal
